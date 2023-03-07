@@ -16,7 +16,51 @@ The fact that many images are stored on the [Docker Hub](https://hub.docker.com/
 ### 4. Clone the frontend and backend repo
 ### 5. Explore the codebases
 ### 6. Ensure we can get the apps running locally
+This is the app's frontend
+
+![Cruddur](https://user-images.githubusercontent.com/17044063/223426709-6ff37ff8-a793-441c-8305-433fb9249eea.png)
+
+This is the app's backend
+
+![https-4567-gladnashah-awsbootcampc-z9i49zzlfsd-ws-eu89-gitpod-io-api-activities-home](https://user-images.githubusercontent.com/17044063/223427062-d1856386-f54d-4c91-bfec-6b81610b31f3.png)
+
+
+
 ### 7. Write a Dockerfile for each app
+
+I was able to write a docker file each app.
+
+**On the backend, I used the code below:**
+``` ruby
+FROM python:3.10-slim-buster
+
+WORKDIR /backend-flask
+
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+COPY . .
+
+ENV FLASK_ENV=development
+
+EXPOSE ${PORT}
+#python3 -m flask run --host=0.0.0.0 --port=4567
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
+```
+
+**On the frontend, the code below was used**
+
+``` ruby
+FROM node:16.18
+
+ENV PORT=3000
+
+COPY . /frontend-react-js
+WORKDIR /frontend-react-js
+RUN npm install
+EXPOSE ${PORT}
+CMD ["npm", "start"]
+```
 ### 8. Ensure we get the apps running via individual container
 ### 9. Create a docker-compose file
 ### 10. Ensure we can orchestrate multiple containers to run side by side
