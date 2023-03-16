@@ -13,8 +13,21 @@ The fact that many images are stored on the [Docker Hub](https://hub.docker.com/
 ![Welcome-aws-bootcamp-cruddur-2023-Gitpod-Code](https://user-images.githubusercontent.com/17044063/222890172-6e222a3f-7d5c-4196-afbd-8d15a8576b91.png)
 
 ### 3. Configure Gitpod.yml configuration, eg. VSCode Extensions
+I was able to configure the Gitpod .yml extensions. The extensions I configured are:
+#### a) Open API
+#### b) Postgres Database
+
+![image](https://user-images.githubusercontent.com/17044063/225551778-03c15f37-bcbe-48a0-8aa1-1795b56f119f.png)
+
+
 ### 4. Clone the frontend and backend repo
+
 ### 5. Explore the codebases
+
+I was able to explore the Github Codebases as shown below
+![image](https://user-images.githubusercontent.com/17044063/225560350-fb99ff36-0cfb-45f4-95b6-cb05df2dd083.png)
+
+
 ### 6. Ensure we can get the apps running locally
 This is the app's frontend
 
@@ -62,6 +75,78 @@ EXPOSE ${PORT}
 CMD ["npm", "start"]
 ```
 ### 8. Ensure we get the apps running via individual container
+The apps were running in an individual container as shown below
+
+![docker-compose-yaml-aws-bootcamp-cruddur-2023-Gitpod-Code (1)](https://user-images.githubusercontent.com/17044063/225561180-d4435e67-dd9e-4921-b898-927179ac48fd.png)
+
+
 ### 9. Create a docker-compose file
+I was able to create a docker compose file using the code below
+
+<details><summary>Click here to see the code </summary>
+  
+``` ruby
+version: "3.8"
+services:
+  backend-flask:
+    environment:
+      FRONTEND_URL: "https://3000-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+      BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./backend-flask
+    ports:
+      - "4567:4567"
+    volumes:
+      - ./backend-flask:/backend-flask
+  frontend-react-js:
+    environment:
+      REACT_APP_BACKEND_URL: "https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
+    build: ./frontend-react-js
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-react-js:/frontend-react-js
+  dynamodb-local:
+    # https://stackoverflow.com/questions/67533058/persist-local-dynamodb-data-in-volumes-lack-permission-unable-to-open-databa
+    # We needed to add user:root to get this working.
+    user: root
+    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    image: "amazon/dynamodb-local:latest"
+    container_name: dynamodb-local
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker/dynamodb:/home/dynamodblocal/data"
+    working_dir: /home/dynamodblocal
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes: 
+      - db:/var/lib/postgresql/data
+
+# the name flag is a hack to change the default prepend folder
+# name when outputting the image names
+networks: 
+  internal-network:
+    driver: bridge
+    name: cruddur
+    
+volumes:
+  db:
+    driver: local
+  ```
+</details>
+
 ### 10. Ensure we can orchestrate multiple containers to run side by side
+I was able to orchestrate multiple containers to run side by side as shown in the image below
+![image](https://user-images.githubusercontent.com/17044063/225557227-fb60721d-97c5-4acc-bdea-8f5470843f64.png)
+
 ### 11. Mount directories so we can make changes while we code
+In the docker compose file, volumes were used for the backend, frontend and database in order to mount directories so that we could make changes easily while coding
+![image](https://user-images.githubusercontent.com/17044063/225559380-ebe0124e-31d1-4fcb-9f55-122462452dcc.png)
+
+
