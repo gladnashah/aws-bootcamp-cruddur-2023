@@ -20,15 +20,13 @@ I was able to configure the Gitpod .yml extensions. The extensions I configured 
 ![image](https://user-images.githubusercontent.com/17044063/225551778-03c15f37-bcbe-48a0-8aa1-1795b56f119f.png)
 
 
-### 4. Clone the frontend and backend repo
-
-### 5. Explore the codebases
+### 4. Explore the codebases
 
 I was able to explore the Github Codebases as shown below
 ![image](https://user-images.githubusercontent.com/17044063/225560350-fb99ff36-0cfb-45f4-95b6-cb05df2dd083.png)
 
 
-### 6. Ensure we can get the apps running locally
+### 5. Ensure we can get the apps running locally
 This is the app's frontend
 
 ![Cruddur](https://user-images.githubusercontent.com/17044063/223426709-6ff37ff8-a793-441c-8305-433fb9249eea.png)
@@ -39,7 +37,7 @@ This is the app's backend
 
 
 
-### 7. Write a Dockerfile for each app
+### 6. Write a Dockerfile for each app
 
 I was able to write a docker file each app.
 
@@ -74,13 +72,13 @@ RUN npm install
 EXPOSE ${PORT}
 CMD ["npm", "start"]
 ```
-### 8. Ensure we get the apps running via individual container
+### 7. Ensure we get the apps running via individual container
 The apps were running in an individual container as shown below
 
 ![docker-compose-yaml-aws-bootcamp-cruddur-2023-Gitpod-Code (1)](https://user-images.githubusercontent.com/17044063/225561180-d4435e67-dd9e-4921-b898-927179ac48fd.png)
 
 
-### 9. Create a docker-compose file
+### 8. Create a docker-compose file
 I was able to create a docker compose file using the code below
 
 <details><summary>Click here to see the code </summary>
@@ -141,11 +139,11 @@ volumes:
   ```
 </details>
 
-### 10. Ensure we can orchestrate multiple containers to run side by side
+### 9. Ensure we can orchestrate multiple containers to run side by side
 I was able to orchestrate multiple containers to run side by side as shown in the image below
 ![image](https://user-images.githubusercontent.com/17044063/225557227-fb60721d-97c5-4acc-bdea-8f5470843f64.png)
 
-### 11. Mount directories so we can make changes while we code
+### 10. Mount directories so we can make changes while we code
 In the docker compose file, volumes were used for the backend, frontend and database in order to mount directories so that we could make changes easily while coding
 ![image](https://user-images.githubusercontent.com/17044063/225559380-ebe0124e-31d1-4fcb-9f55-122462452dcc.png)
 
